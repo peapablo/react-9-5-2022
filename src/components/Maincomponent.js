@@ -1,67 +1,39 @@
-import React, { Component } from 'react'; 
+import React, { Component } from 'react';
+import { Navbar, NavbarBrand } from 'reactstrap';
+import Menu from './MenuComponent';
+import { DISHES } from '../shared/dishes';
+import Header from './HeaderComponent';
+import Footer from './FooterComponent';
 
-import { Navbar, NavbarBrand } from 'reactstrap'; 
 
-import Menu from './MenuComponent'; 
+class Main extends Component {
 
-import { DISHES } from '../shared/dishes'; 
+    constructor(props) {
+        super(props);
+        this.state = {
+            dishes: DISHES,
+            selectedDish: null,
+        };
+    }
 
- 
+    onDishSelect(dishId) {
+        this.renderDish(this.props.dishes[this.props.selectedDish])
+    }
 
-class Main extends Component { 
+    render() {
+        return (
+            <div>
+                <Navbar dark color="primary">
+                    <div className="container">
+                        <NavbarBrand href="/">Ristorante Con Fusion</NavbarBrand>
+                    </div>
+                </Navbar>
+                <Header />
+                <Menu dishes={this.state.dishes} onClick={(dishId) => this.onDishSelect(dishId)} />
+                <Footer />
+            </div>
+        );
+    }
+}
 
- 
-
-  constructor(props) { 
-
-    super(props); 
-
-    this.state = { 
-
-        dishes: DISHES, 
-
-        selectedDish: null, 
-
-    }; 
-
-  } 
-
- 
-
-  onDishSelect(dishId) { 
-
-    this.setState({selectedDish: dishId}) 
-
-  } 
-
- 
-
-  render() { 
-
-    return ( 
-
-      <div> 
-
-        <Navbar dark color="primary"> 
-
-          <div className="container"> 
-
-            <NavbarBrand href="/">Ristorante Con Fusion</NavbarBrand> 
-
-          </div> 
-
-        </Navbar> 
-
-        <Menu dishes={this.state.dishes} selectedDish={this.state.selectedDish} onClick={(dishId) => this.onDishSelect(dishId)} /> 
-
-      </div> 
-
-    ); 
-
-  } 
-
-} 
-
- 
-
-export default Main; 
+export default Main;
